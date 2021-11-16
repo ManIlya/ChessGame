@@ -122,4 +122,5 @@ public class ChessGame {
     public void resetTapCount() {
         tapCount=0;
     }
+
 }

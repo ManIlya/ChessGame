@@ -3,10 +3,13 @@ package ru.vsu.cs.manukovsky.board;
 import ru.vsu.cs.manukovsky.figure.*;
 
 import java.awt.*;
+import java.util.List;
 
 public class ChessBoard {
     private Figure[][] board;
     public static final int size =8;
+    private List<Figure> listWhite;
+    private List<Figure> listBlack;
 
     public ChessBoard() {
         board = new Figure[size][size];

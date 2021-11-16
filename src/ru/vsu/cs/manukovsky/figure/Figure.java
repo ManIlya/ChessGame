@@ -59,11 +59,10 @@ public abstract class Figure {
     }
     public char paint(){
         if((point.x+point.y)%2==0){
-            return ' ';
+            return '▬';
         }
-        return' ';
+        return'▭';
     }
-
     public  boolean isDoNotMove(){
         return doNotMove;
     }
