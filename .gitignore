@@ -1,2 +1,6 @@
 out
 *.class
+out/production/Chess03/ru/vsu/cs/manukovsky/board/CheckMove.class
+out/production/Chess03/ru/vsu/cs/manukovsky/game/ChessGame.class
+out/production/Chess03/ru/vsu/cs/manukovsky/game/ConsoleGame.class
+out/production/Chess03/ru/vsu/cs/manukovsky/game/MainFrame$2.class
