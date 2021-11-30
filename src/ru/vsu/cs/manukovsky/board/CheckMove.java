@@ -3,14 +3,12 @@ package ru.vsu.cs.manukovsky.board;
 import ru.vsu.cs.manukovsky.figure.ColorFigure;
 import ru.vsu.cs.manukovsky.figure.Figure;
 
-import java.util.LinkedList;
-
 import static java.lang.Math.*;
 
 public class CheckMove {
 
     public static boolean horizontal(Figure piece, Figure toPiece, Figure[][] board) {
-        if(piece.getPoint().x==toPiece.getPoint().x){
+        if (piece.getPoint().x == toPiece.getPoint().x) {
             int j1 = piece.getPoint().y, j2 = toPiece.getPoint().y;
             for (int j = min(j1, j2) + 1; j < max(j1, j2); j++) {
                 if (board[piece.getPoint().x][j].getColor() != ColorFigure.EMPTY) {
@@ -23,7 +21,7 @@ public class CheckMove {
     }
 
     public static boolean vertical(Figure piece, Figure toPiece, Figure[][] board) {
-        if(piece.getPoint().y==toPiece.getPoint().y){
+        if (piece.getPoint().y == toPiece.getPoint().y) {
             int i1 = piece.getPoint().x, i2 = piece.getPoint().x;//задаю конци
             for (int i = min(i1, i2) + 1; i < max(i1, i2); i++) {
                 if (board[i][piece.getPoint().y].getColor() == piece.getColor()) {
@@ -37,7 +35,7 @@ public class CheckMove {
 
     public static boolean diagonal(Figure piece, Figure toPiece, Figure[][] board) {
         int i1 = piece.getPoint().x, i2 = toPiece.getPoint().x,
-                j1 = piece.getPoint().y, j2 = toPiece.getPoint().y;
+                j1 = piece.getPoint().y;
         if (toPiece.getPoint().x > piece.getPoint().x &&
                 toPiece.getPoint().y > piece.getPoint().y) {//с верху вниз с права на лево
             for (int i = 1; i < i2 - i1; i++) {
@@ -66,7 +64,7 @@ public class CheckMove {
                 }
             }
         }
-        return toPiece.getColor()!=piece.getColor();
+        return toPiece.getColor() != piece.getColor();
     }
 
     public static boolean knight(Figure piece, Figure toPiece) {
@@ -76,7 +74,7 @@ public class CheckMove {
                 toPiece.getColor() != piece.getColor();
     }
 
-    public static boolean pawn(Figure piece, Figure toPiece) {
+    public static boolean pawn(Figure piece, Figure toPiece, Figure[][] board) {
         int i = piece.getColor() == ColorFigure.WHITE ? 1 : -1;
 
         if (toPiece.getPoint().x - piece.getPoint().x == i) {
@@ -84,36 +82,32 @@ public class CheckMove {
                     toPiece.getColor() != piece.getColor() &&
                     toPiece.getColor() != ColorFigure.EMPTY) {
                 return true;
-            } else if (toPiece.getPoint().y == piece.getPoint().y &&
-                    toPiece.getColor() == ColorFigure.EMPTY) {
-                return true;
-            }
-        } else if (toPiece.getPoint().x - piece.getPoint().x == i * 2 &&
+            } else return toPiece.getPoint().y == piece.getPoint().y &&
+                    toPiece.getColor() == ColorFigure.EMPTY;
+        } else return toPiece.getPoint().x - piece.getPoint().x == i * 2 &&
                 (piece.getPoint().x == 1 || piece.getPoint().x == 6) &&
-                toPiece.getColor() == ColorFigure.EMPTY) {
-            return true;
-        }
-        return false;
+                toPiece.getColor() == ColorFigure.EMPTY &&
+                board[piece.getPoint().x + i][piece.getPoint().y].getColor() == ColorFigure.EMPTY;
 
     }
 
     public static boolean king(Figure piece, Figure toPiece, Figure[][] board) {
         if (abs((toPiece.getPoint().x - piece.getPoint().x)) <= 1 &&
                 abs((toPiece.getPoint().y - piece.getPoint().y)) <= 1) {
-            return piece.getColor()!=toPiece.getColor();
+            return piece.getColor() != toPiece.getColor();
         } else if (toPiece.getPoint().x == piece.getPoint().x &&
-                abs(piece.getPoint().y - toPiece.getPoint().y) == 2 &&piece.isDoNotMove()) {
+                abs(piece.getPoint().y - toPiece.getPoint().y) == 2 && piece.isDoNotMove()) {
             //рокеровка
-            int i=toPiece.getPoint().x;
-            int j=toPiece.getPoint().y;
+            int i = toPiece.getPoint().x;
+            int j = toPiece.getPoint().y;
             if (toPiece.getPoint().y == 6) {
-                return toPiece.getColor()==ColorFigure.EMPTY &&
-                        board[i][j - 1].getColor()==ColorFigure.EMPTY &&
+                return toPiece.getColor() == ColorFigure.EMPTY &&
+                        board[i][j - 1].getColor() == ColorFigure.EMPTY &&
                         board[i][j + 1].isDoNotMove();
             } else if (toPiece.getPoint().y == 2) {
-                return toPiece.getColor()==ColorFigure.EMPTY &&
-                        board[i][j + 1].getColor()==ColorFigure.EMPTY &&
-                        board[i][j - 1].getColor()==ColorFigure.EMPTY &&
+                return toPiece.getColor() == ColorFigure.EMPTY &&
+                        board[i][j + 1].getColor() == ColorFigure.EMPTY &&
+                        board[i][j - 1].getColor() == ColorFigure.EMPTY &&
                         board[i][j - 2].isDoNotMove();
             }
         }

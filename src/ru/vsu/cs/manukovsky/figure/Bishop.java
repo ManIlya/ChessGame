@@ -3,6 +3,7 @@ package ru.vsu.cs.manukovsky.figure;
 import ru.vsu.cs.manukovsky.board.CheckMove;
 
 import java.awt.*;
+import java.io.File;
 
 public class Bishop extends Figure{
     public Bishop(ColorFigure color, Figure[][] board, Point point) {
@@ -14,6 +15,16 @@ public class Bishop extends Figure{
         if (color != ColorFigure.WHITE)
             return '♝';
         return '♗';
+    }
+    @Override
+    public File getFile() {
+        String str;
+        if (color != ColorFigure.WHITE) {
+            str = "bB.png";
+        } else {
+            str = "wB.png";
+        }
+        return new File(super.getFile(), str);
     }
 
     @Override

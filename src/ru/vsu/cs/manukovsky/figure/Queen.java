@@ -3,6 +3,7 @@ package ru.vsu.cs.manukovsky.figure;
 import ru.vsu.cs.manukovsky.board.CheckMove;
 
 import java.awt.*;
+import java.io.File;
 
 public class Queen extends Figure {
     public Queen(ColorFigure color, Figure[][] board, Point point) {
@@ -13,6 +14,16 @@ public class Queen extends Figure {
         if (color != ColorFigure.WHITE)
             return '♛';
         return '♕';
+    }
+    @Override
+    public File getFile() {
+        String str;
+        if (color != ColorFigure.WHITE) {
+            str = "bQ.png";
+        } else {
+            str = "wQ.png";
+        }
+        return new File(super.getFile(), str);
     }
     @Override
     protected boolean checkMove(Figure toPiece) {

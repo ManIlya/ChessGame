@@ -3,6 +3,7 @@ package ru.vsu.cs.manukovsky.figure;
 import ru.vsu.cs.manukovsky.board.CheckMove;
 
 import java.awt.*;
+import java.io.File;
 
 import static java.lang.Math.abs;
 
@@ -18,6 +19,16 @@ public class King extends Figure{
             return '♚';
         return '♔';
     }
+    @Override
+    public File getFile() {
+        String str;
+        if (color != ColorFigure.WHITE) {
+            str = "bK.png";
+        } else {
+            str = "wK.png";
+        }
+        return new File(super.getFile(), str);
+    }
 
     @Override
     protected boolean checkMove(Figure toPiece) {
@@ -25,7 +36,7 @@ public class King extends Figure{
     }
 
     @Override
-    public void move(Figure toPiece) {
+    public boolean move(Figure toPiece) {
         if (checkMove(toPiece)){
             if(abs(toPiece.getPoint().y-point.y)>1){
                 int x=point.x;
@@ -42,9 +53,10 @@ public class King extends Figure{
             board[point.x][point.y]=new Empty(point);
             point = new Point(x, y);
             doNotMove=false;
-
+            return true;
         }else {
             System.out.println("False");
+            return false;
         }
     }
 }

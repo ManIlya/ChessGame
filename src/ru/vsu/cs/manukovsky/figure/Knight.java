@@ -3,8 +3,9 @@ package ru.vsu.cs.manukovsky.figure;
 import ru.vsu.cs.manukovsky.board.CheckMove;
 
 import java.awt.*;
+import java.io.File;
 
-public class Knight extends Figure{
+public class Knight extends Figure {
     public Knight(ColorFigure color, Figure[][] board, Point point) {
         super(color, board, point);
     }
@@ -14,6 +15,17 @@ public class Knight extends Figure{
         if (color != ColorFigure.WHITE)
             return '♞';
         return '♘';
+    }
+
+    @Override
+    public File getFile() {
+        String str;
+        if (color != ColorFigure.WHITE) {
+            str = "bN.png";
+        } else {
+            str = "wN.png";
+        }
+        return new File(super.getFile(), str);
     }
 
     @Override

@@ -1,17 +1,20 @@
 package ru.vsu.cs.manukovsky.figure;
 
 import java.awt.*;
+import java.io.File;
 
 public abstract class Figure {
     protected ColorFigure color;
     protected Figure[][] board;
     protected Point point;
     protected boolean doNotMove;
+    protected File file;
 
     public Figure(ColorFigure color, Figure[][] board, Point point) {
         this.color = color;
         this.board = board;
         this.point = point;
+        file = new File("D:/Morgoth/University/3_semester/OOP/ChessGame/chess24/");
     }
 
     public Figure(Point point) {
@@ -42,10 +45,14 @@ public abstract class Figure {
         this.point = point;
     }
 
+    public File getFile() {
+        return file;
+    }
+
     protected boolean checkMove(Figure toPiece){
         return false;
     }
-    public void move(Figure toPiece){
+    public boolean move(Figure toPiece){
         if(checkMove(toPiece)){
             int x=toPiece.getPoint().x;
             int y= toPiece.getPoint().y;
@@ -53,8 +60,10 @@ public abstract class Figure {
             board[point.x][point.y]=new Empty(point);
             point = new Point(x, y);
             doNotMove= false;
+            return true;
         }else{
             System.out.println("False");
+            return false;
         }
     }
     public char paint(){

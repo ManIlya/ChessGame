@@ -53,11 +53,11 @@ public class ChessGame {
         return false;
     }
 
-    public void leftMouseClick2(int row, int col) {
-        if ((board[row][col].getColor() == ColorFigure.WHITE && state == GameState.MOVE_OF_BLACK) ||
+    public boolean leftMouseClick2(int row, int col) {
+        if (((board[row][col].getColor() == ColorFigure.WHITE && state == GameState.MOVE_OF_BLACK) ||
                 (board[row][col].getColor() == ColorFigure.BLACK && state == GameState.MOVE_OF_WHITE)||
-                (board[row][col].getColor() == ColorFigure.EMPTY)) {
-            chessBoard.move(LMS.x, LMS.y, row, col);
+                (board[row][col].getColor() == ColorFigure.EMPTY)) &&
+                chessBoard.move(LMS.x, LMS.y, row, col)) {
             listBoard.add(board.clone());
             board = chessBoard.getBoard();
             if(state == GameState.MOVE_OF_BLACK){
@@ -67,8 +67,10 @@ public class ChessGame {
                 state = GameState.MOVE_OF_BLACK;
             }
             LMS = null;
+            return true;
             //сделать возможность показа всех возможных ходов
         }
+        return false;
     }
 
     public GameState getState() {
